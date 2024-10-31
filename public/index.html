@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Manipulation Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>🔤 String Manipulation Tool</h1>
+
+        <input type="text" id="inputString" placeholder="Enter a string here" required>
+
+        <div class="operations">
+            <button onclick="manipulateString('reverse')" class="button">Reverse</button>
+            <button onclick="manipulateString('uppercase')" class="button">To Uppercase</button>
+            <button onclick="manipulateString('lowercase')" class="button">To Lowercase</button>
+            <button onclick="manipulateString('palindrome')" class="button">Check Palindrome</button>
+        </div>
+
+        <h2>Result:</h2>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        async function manipulateString(operation) {
+            const inputString = document.getElementById('inputString').value;
+            const response = await fetch('/manipulate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ inputString, operation })
+            });
+            const data = await response.json();
+            document.getElementById('result').innerText = data.result;
+        }
+    </script>
+</body>
+</html>
